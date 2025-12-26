@@ -33,4 +33,7 @@ public class Account {
     @JoinColumn(name = "user_id",nullable = false)
     private User user;
 
+    @OneToOne(mappedBy = "account",cascade = CascadeType.ALL,orphanRemoval = true)
+    private AccountVerification accountVerification;
+
 }
