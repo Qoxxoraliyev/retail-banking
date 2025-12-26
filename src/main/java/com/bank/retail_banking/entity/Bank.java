@@ -29,5 +29,7 @@ public class Bank {
     @OneToMany(mappedBy = "bank",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<BankOffers> bankOffers=new ArrayList<>();
 
+    @OneToMany(mappedBy = "bank",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<User> users=new ArrayList<>();
 
 }

@@ -6,8 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
+
+
 
 @Entity
 @Getter
@@ -29,7 +29,7 @@ public class BankOffers {
 
     @ManyToOne(fetch =FetchType.LAZY)
     @JoinColumn(name = "bank_id",nullable = false)
-    private List<BankOffers> bankOffers=new ArrayList<>();
+    private Bank bank;
 
 
 }
