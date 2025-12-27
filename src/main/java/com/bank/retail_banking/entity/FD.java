@@ -1,9 +1,6 @@
 package com.bank.retail_banking.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,13 +13,16 @@ import java.math.BigDecimal;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@DiscriminatorValue("FD")
 @Table(name = "fd")
-public class FD extends Account{
+public class FD {
 
     @Column(name = "min_balance",nullable = false,precision = 19,scale = 2)
     @PositiveOrZero
     private BigDecimal minBalance;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false,unique = true)
+    private Account account;
 
 
 }

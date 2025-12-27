@@ -18,7 +18,7 @@ public class AccountVerification {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @NotBlank
     @Size(min = 6,max = 10)
@@ -28,5 +28,7 @@ public class AccountVerification {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id",nullable = false,unique = true)
     private Account account;
+
+
 
 }

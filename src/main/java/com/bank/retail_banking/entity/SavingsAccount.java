@@ -1,9 +1,6 @@
 package com.bank.retail_banking.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,11 +13,14 @@ import java.math.BigDecimal;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@DiscriminatorValue("SAVINGS")
 @Table(name = "savings_account")
-public class SavingsAccount extends Account{
+public class SavingsAccount{
 
     @Column(name ="interest_rate",precision = 5,scale = 2)
     private BigDecimal interestRate;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false,unique = true)
+    private Account account;
 
 }

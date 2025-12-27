@@ -16,7 +16,7 @@ public class Firewall {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "ip_address",nullable = false,unique = true,length = 45)
     private String ipAddress;

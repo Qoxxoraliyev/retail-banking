@@ -15,16 +15,14 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "account_type")
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "accounts")
-public abstract class Account {
+public  class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "account_number",nullable = false,unique = true)
     private String accountNumber;
@@ -36,6 +34,9 @@ public abstract class Account {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id",nullable = false)
     private User user;
+
+    @OneToOne(mappedBy = "account",cascade = CascadeType.ALL,orphanRemoval = true)
+    private CheckingAccount checkingAccount;
 
     @OneToOne(mappedBy = "account",cascade = CascadeType.ALL,orphanRemoval = true)
     private AccountVerification accountVerification;
