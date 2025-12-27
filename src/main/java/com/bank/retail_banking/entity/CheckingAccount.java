@@ -6,19 +6,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "checking_account")
-public class CheckingAccount {
+@DiscriminatorValue("CHECKING")
+@Table(name = "checking_accounts")
+public class CheckingAccount extends Account {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "overdraft_limit", nullable = false,precision = 19,scale = 2)
+    private BigDecimal overdraftLimit;
 
-    private Double overdraftLimit;
 
-    
 }

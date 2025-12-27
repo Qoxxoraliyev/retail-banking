@@ -20,9 +20,6 @@ public class Bank {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "account_number",nullable = false,unique = true,length = 50)
-    private String account_number;
-
     @Column(nullable = false,precision = 15,scale = 2)
     private Double balance;
 
