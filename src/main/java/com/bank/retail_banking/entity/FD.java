@@ -16,6 +16,10 @@ import java.math.BigDecimal;
 @Table(name = "fd")
 public class FD {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(name = "min_balance",nullable = false,precision = 19,scale = 2)
     @PositiveOrZero
     private BigDecimal minBalance;

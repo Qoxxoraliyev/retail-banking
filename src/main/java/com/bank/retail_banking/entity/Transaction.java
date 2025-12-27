@@ -1,5 +1,6 @@
 package com.bank.retail_banking.entity;
 
+import com.bank.retail_banking.enums.TransactionType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -26,6 +27,10 @@ public class Transaction {
     @NotBlank
     @Column(name = "transaction_id",nullable = false,length = 50)
     private String transactionId;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TransactionType type;
 
     @NotNull
     @Positive

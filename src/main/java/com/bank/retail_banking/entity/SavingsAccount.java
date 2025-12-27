@@ -16,6 +16,10 @@ import java.math.BigDecimal;
 @Table(name = "savings_account")
 public class SavingsAccount{
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(name ="interest_rate",precision = 5,scale = 2)
     private BigDecimal interestRate;
 

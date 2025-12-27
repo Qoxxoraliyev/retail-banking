@@ -1,5 +1,4 @@
 package com.bank.retail_banking.entity;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -7,41 +6,27 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Entity
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "withdrawals")
-public class Withdrawal {
+@Table(name = "credit_card")
+public class CreditCard {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "transaction_id",nullable = false,length = 50)
-    private String transactionId;
-
     @NotNull
     @Positive
     @Column(nullable = false,precision = 19,scale = 2)
-    private BigDecimal amount;
+    private BigDecimal creditLimit;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "from_account_id")
-    private Account fromAccount;
-
-    @NotNull
-    @Column(nullable = false)
-    private LocalDateTime timestamp=LocalDateTime.now();
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id",nullable = false)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_id",nullable = false,unique = true)
     private Account account;
-
 
 }

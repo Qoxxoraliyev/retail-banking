@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +23,7 @@ public class Bank {
     private Long id;
 
     @Column(nullable = false,precision = 15,scale = 2)
-    private Double balance;
+    private BigDecimal balance;
 
     @OneToMany(mappedBy = "bank",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<BankOffers> bankOffers=new ArrayList<>();

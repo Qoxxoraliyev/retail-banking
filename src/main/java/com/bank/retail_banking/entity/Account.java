@@ -44,4 +44,6 @@ public  class Account {
     @OneToMany(mappedBy = "account",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Transaction> transactions=new ArrayList<>();
 
+    @OneToOne(mappedBy = "account",cascade = CascadeType.ALL,orphanRemoval = true)
+    private CreditCard card;
 }

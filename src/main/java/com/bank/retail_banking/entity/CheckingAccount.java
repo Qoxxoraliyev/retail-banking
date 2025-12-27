@@ -17,6 +17,10 @@ import java.math.BigDecimal;
 @Table(name = "checking_accounts")
 public class CheckingAccount{
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(name = "overdraft_limit", nullable = false,precision = 19,scale = 2)
     @PositiveOrZero
     private BigDecimal overdraftLimit=BigDecimal.ZERO;
