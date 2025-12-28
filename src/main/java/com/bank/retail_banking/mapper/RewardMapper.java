@@ -1,5 +1,7 @@
-package com.bank.retail_banking.dto;
+package com.bank.retail_banking.mapper;
 
+import com.bank.retail_banking.dto.RewardRequestDTO;
+import com.bank.retail_banking.dto.RewardResponseDTO;
 import com.bank.retail_banking.entity.Rewards;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
