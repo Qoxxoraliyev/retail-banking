@@ -1,5 +1,4 @@
 package com.bank.retail_banking.mapper;
-
 import com.bank.retail_banking.dto.TransactionDTO;
 import com.bank.retail_banking.entity.Transaction;
 import org.mapstruct.Mapper;
