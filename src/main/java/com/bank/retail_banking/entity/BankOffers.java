@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
+import java.math.BigDecimal;
 
 
 @Entity
@@ -26,6 +26,9 @@ public class BankOffers {
 
     @Column(name = "offer_description",columnDefinition = "TEXT")
     private String offerDescription;
+
+    @Column(nullable = false, precision = 15, scale = 2)
+    private BigDecimal amount;
 
     @ManyToOne(fetch =FetchType.LAZY)
     @JoinColumn(name = "bank_id",nullable = false)
