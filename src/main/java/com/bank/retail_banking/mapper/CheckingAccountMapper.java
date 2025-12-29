@@ -1,19 +1,38 @@
 package com.bank.retail_banking.mapper;
 
 import com.bank.retail_banking.dto.CheckingAccountDTO;
+import com.bank.retail_banking.entity.Account;
 import com.bank.retail_banking.entity.CheckingAccount;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 
-@Mapper
+
+
+@Mapper(componentModel = "spring")
 public interface CheckingAccountMapper {
 
-    CheckingAccountMapper INSTANCE= Mappers.getMapper(CheckingAccountMapper.class);
+    default CheckingAccount toEntity(CheckingAccountDTO dto) {
+        if (dto == null) return null;
 
-    @Mapping(source = "accountId",target = "account.id")
-    CheckingAccount toEntity(CheckingAccountDTO dto);
+        CheckingAccount ca = new CheckingAccount();
+        ca.setId(dto.id());
+        ca.setOverdraftLimit(dto.overdraftLimit());
 
-    @Mapping(source = "account.id",target = "accountId")
-    CheckingAccountDTO toDTO(CheckingAccount checkingAccount);
+        if (dto.accountId() != null) {
+            Account account = new Account();
+            account.setId(dto.accountId());
+            ca.setAccount(account);
+        }
+
+        return ca;
+    }
+
+    default CheckingAccountDTO toDTO(CheckingAccount ca) {
+        if (ca == null) return null;
+
+        return new CheckingAccountDTO(
+                ca.getId(),
+                ca.getOverdraftLimit(),
+                ca.getAccount() != null ? ca.getAccount().getId() : null
+        );
+    }
 }

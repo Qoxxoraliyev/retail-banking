@@ -2,24 +2,49 @@ package com.bank.retail_banking.mapper;
 
 import com.bank.retail_banking.dto.RewardRequestDTO;
 import com.bank.retail_banking.dto.RewardResponseDTO;
-import com.bank.retail_banking.entity.Rewards;
+import com.bank.retail_banking.entity.*;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 
-@Mapper
+
+@Mapper(componentModel = "spring")
 public interface RewardMapper {
 
-    RewardMapper INSTANCE= Mappers.getMapper(RewardMapper.class);
+    default Rewards toEntity(RewardRequestDTO dto) {
+        if (dto == null) return null;
 
-    @Mapping(source = "transactionId", target = "transaction.id")
-    @Mapping(source = "creditCardId", target = "creditCard.id")
-    @Mapping(source = "userId", target = "user.id")
-    Rewards toEntity(RewardRequestDTO dto);
+        Rewards r = new Rewards();
+        r.setRewardType(dto.rewardType());
+        r.setAmount(dto.amount());
 
+        Transaction t = new Transaction();
+        t.setId(dto.transactionId());
+        r.setTransaction(t);
 
-    @Mapping(source = "transaction.id", target = "transactionId")
-    @Mapping(source = "creditCard.id", target = "creditCardId")
-    @Mapping(source = "user.id", target = "userId")
-    RewardResponseDTO toResponseDTO(Rewards rewards);
+        CreditCard c = new CreditCard();
+        c.setId(dto.creditCardId());
+        r.setCreditCard(c);
+
+        User u = new User();
+        u.setId(dto.userId());
+        r.setUser(u);
+
+        BankShoppingEnterprises e = new BankShoppingEnterprises();
+        e.setId(dto.enterpriseId());
+        r.setEnterprise(e);
+
+        return r;
+    }
+
+    default RewardResponseDTO toResponseDTO(Rewards r) {
+        if (r == null) return null;
+        return new RewardResponseDTO(
+                r.getId(),
+                r.getRewardType(),
+                r.getAmount(),
+                r.getTransaction().getId(),
+                r.getCreditCard().getId(),
+                r.getUser().getId(),
+                r.getEnterprise().getId()
+        );
+    }
 }

@@ -32,6 +32,12 @@ public class BankServiceImpl implements BankService {
 
 
     @Override
+    public Bank create(Bank bank){
+        return bankRepository.save(bank);
+    }
+
+
+    @Override
     public void increaseBalance(Bank bank,BigDecimal amount){
         bank.setBalance(bank.getBalance().add(amount));
     }

@@ -6,6 +6,8 @@ public interface BankService {
 
     Bank getById(Long id);
 
+    Bank create(Bank bank);
+
     void decreaseBalance(Bank bank, BigDecimal amount);
 
     void increaseBalance(Bank bank,BigDecimal amount);

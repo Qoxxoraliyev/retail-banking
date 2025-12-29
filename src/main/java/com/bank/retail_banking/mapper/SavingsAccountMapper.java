@@ -1,20 +1,39 @@
 package com.bank.retail_banking.mapper;
 
 import com.bank.retail_banking.dto.SavingsAccountDTO;
+import com.bank.retail_banking.entity.Account;
 import com.bank.retail_banking.entity.SavingsAccount;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 
-@Mapper
+
+
+@Mapper(componentModel = "spring")
 public interface SavingsAccountMapper {
 
-    SavingsAccountMapper INSTANCE= Mappers.getMapper(SavingsAccountMapper.class);
+    default SavingsAccount toEntity(SavingsAccountDTO dto) {
+        if (dto == null) return null;
 
-    @Mapping(source = "accountId",target = "account.id")
-    SavingsAccount toEntity(SavingsAccountDTO dto);
+        SavingsAccount sa = new SavingsAccount();
+        sa.setId(dto.id());
+        sa.setInterestRate(dto.interestRate());
 
-    @Mapping(source = "account.id",target = "accountId")
-    SavingsAccountDTO toDTO(SavingsAccount savingsAccount);
+        if (dto.accountId() != null) {
+            Account account = new Account();
+            account.setId(dto.accountId());
+            sa.setAccount(account);
+        }
 
+        return sa;
+    }
+
+    default SavingsAccountDTO toDTO(SavingsAccount sa) {
+        if (sa == null) return null;
+
+        return new SavingsAccountDTO(
+                sa.getId(),
+                sa.getInterestRate(),
+                sa.getAccount() != null ? sa.getAccount().getId() : null
+        );
+    }
 }
+

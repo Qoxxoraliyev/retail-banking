@@ -4,18 +4,36 @@ import com.bank.retail_banking.dto.BankShoppingEnterpriseRequestDTO;
 import com.bank.retail_banking.dto.BankShoppingEnterpriseResponseDTO;
 import com.bank.retail_banking.entity.BankShoppingEnterprises;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 
-@Mapper
+
+
+@Mapper(componentModel = "spring")
 public interface BankShoppingEnterpriseMapper {
 
-    BankShoppingEnterpriseMapper INSTANCE= Mappers.getMapper(BankShoppingEnterpriseMapper.class);
+    default BankShoppingEnterprises toEntity(BankShoppingEnterpriseRequestDTO dto) {
+        if (dto == null) return null;
 
-    @Mapping(target = "parentEnterprise.id", source = "parentEnterpriseId")
-    BankShoppingEnterprises toEntity(BankShoppingEnterpriseRequestDTO dto);
+        BankShoppingEnterprises entity = new BankShoppingEnterprises();
+        entity.setEnterpriseName(dto.enterpriseName());
+        entity.setEnterpriseDescription(dto.enterpriseDescription());
 
-    @Mapping(target = "parentEnterpriseId", source = "parentEnterprise.id")
-    BankShoppingEnterpriseResponseDTO toDTO(BankShoppingEnterprises entity);
+        if (dto.parentEnterpriseId() != null) {
+            BankShoppingEnterprises parent = new BankShoppingEnterprises();
+            parent.setId(dto.parentEnterpriseId());
+            entity.setParentEnterprise(parent);
+        }
 
+        return entity;
+    }
+
+    default BankShoppingEnterpriseResponseDTO toDTO(BankShoppingEnterprises entity) {
+        if (entity == null) return null;
+
+        return new BankShoppingEnterpriseResponseDTO(
+                entity.getId(),
+                entity.getEnterpriseName(),
+                entity.getEnterpriseDescription(),
+                entity.getParentEnterprise() != null ? entity.getParentEnterprise().getId() : null
+        );
+    }
 }

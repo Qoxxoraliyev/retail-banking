@@ -1,5 +1,6 @@
 package com.bank.retail_banking.entity;
 
+import com.bank.retail_banking.enums.OfferType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+
 
 
 @Entity
@@ -27,8 +30,20 @@ public class BankOffers {
     @Column(name = "offer_description",columnDefinition = "TEXT")
     private String offerDescription;
 
+    @Enumerated(EnumType.STRING)
+    private OfferType offerType;
+
     @Column(nullable = false, precision = 15, scale = 2)
-    private BigDecimal amount;
+    private BigDecimal value;
+
+    @Column(nullable = false, precision = 19, scale = 2)
+    private BigDecimal budget;
+
+    private LocalDate startDate;
+
+    private LocalDate endDate;
+
+    private boolean active;
 
     @ManyToOne(fetch =FetchType.LAZY)
     @JoinColumn(name = "bank_id",nullable = false)

@@ -10,6 +10,7 @@ public record RewardResponseDTO(
         BigDecimal amount,
         Long transactionId,
         Long creditCardId,
-        Long userId
-) {
-}
+        Long userId,
+        Long enterpriseId
+) {}
+

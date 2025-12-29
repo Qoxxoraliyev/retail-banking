@@ -5,12 +5,11 @@ import com.bank.retail_banking.entity.CreditCard;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface CreditCardMapper {
 
     @Mapping(source = "accountId", target = "account.id")
     CreditCard toEntity(CreditCardDTO dto);
-
 
     @Mapping(source = "account.id", target = "accountId")
     CreditCardDTO toDTO(CreditCard creditCard);

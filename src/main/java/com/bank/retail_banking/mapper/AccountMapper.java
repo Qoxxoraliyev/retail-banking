@@ -3,17 +3,24 @@ package com.bank.retail_banking.mapper;
 import com.bank.retail_banking.dto.AccountRequestDTO;
 import com.bank.retail_banking.dto.AccountResponseDTO;
 import com.bank.retail_banking.entity.Account;
+import com.bank.retail_banking.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 
-@Mapper
+
+@Mapper(componentModel = "spring")
 public interface AccountMapper {
 
-    AccountMapper INSTANCE=Mappers.getMapper(AccountMapper.class);
-
-    @Mapping(source = "userId",target = "user.id")
+    @Mapping(source = "userId", target = "user")
     Account toAccount(AccountRequestDTO dto);
 
     AccountResponseDTO toAccountResponseDTO(Account account);
+
+    default User map(Long userId) {
+        if (userId == null) return null;
+        User user = new User();
+        user.setId(userId);
+        return user;
+    }
 }
+
