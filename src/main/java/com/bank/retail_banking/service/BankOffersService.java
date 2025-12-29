@@ -5,6 +5,7 @@ import com.bank.retail_banking.enums.OfferType;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 
 public interface BankOffersService {
@@ -20,6 +21,39 @@ public interface BankOffersService {
                 LocalDate end
         );
 
+
+        BankOffers updateOffer(
+                Long offerId,
+                String name,
+                String description,
+                OfferType type,
+                BigDecimal value,
+                BigDecimal budget,
+                LocalDate start,
+                LocalDate end,
+                Boolean active
+        );
+
+
+        BankOffers patchOffer(
+                Long offerId,
+                String name,
+                String description,
+                OfferType type,
+                BigDecimal value,
+                BigDecimal budget,
+                LocalDate start,
+                LocalDate end,
+                Boolean active
+        );
+
+        void assignOfferToCards(Long offerId, List<Long> cardIds);
+
+        void removeOfferFromCards(Long offerId,List<Long> cardsId);
+
+        void updateOffersCards(Long offerId,List<Long> cardIds);
+
         void deleteOffer(Long offerId);
+
     }
 

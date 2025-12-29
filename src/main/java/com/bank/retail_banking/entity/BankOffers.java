@@ -9,7 +9,8 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -48,6 +49,15 @@ public class BankOffers {
     @ManyToOne(fetch =FetchType.LAZY)
     @JoinColumn(name = "bank_id",nullable = false)
     private Bank bank;
+
+    @ManyToMany
+    @JoinTable(
+            name = "offer_credit_card",
+            joinColumns = @JoinColumn(name = "offer_id"),
+            inverseJoinColumns = @JoinColumn(name = "card_id")
+    )
+    private List<CreditCard> creditCards = new ArrayList<>();
+
 
 
 }

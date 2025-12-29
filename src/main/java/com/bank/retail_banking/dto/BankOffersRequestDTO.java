@@ -14,5 +14,6 @@ public record BankOffersRequestDTO(
         BigDecimal value,
         BigDecimal budget,
         LocalDate startDate,
-        LocalDate endDate
+        LocalDate endDate,
+        Boolean active
 ){}
