@@ -16,6 +16,8 @@ public class BankServiceImpl implements BankService {
 
     private final BankRepository bankRepository;
 
+    private final TransactionServiceImpl transactionService;
+
     @Override
     public Bank getById(Long id){
         return bankRepository.findById(id)
@@ -24,6 +26,7 @@ public class BankServiceImpl implements BankService {
 
     @Override
     public void decreaseBalance(Bank bank, BigDecimal amount){
+        transactionService.monitorBankTransaction(bank,amount,"WITHDRAWAL");
         if (bank.getBalance().compareTo(amount)<0){
             throw new RuntimeException("There are insufficient funds in the bank balance");
         }
@@ -39,8 +42,11 @@ public class BankServiceImpl implements BankService {
 
     @Override
     public void increaseBalance(Bank bank,BigDecimal amount){
+        transactionService.monitorBankTransaction(bank, amount, "DEPOSIT");
         bank.setBalance(bank.getBalance().add(amount));
     }
+
+
 
 
 }
